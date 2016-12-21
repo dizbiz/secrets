@@ -1,0 +1,30 @@
+<a style="float:right" href="/sessions/<%= session[:user_id] %>" data-method="delete">Logout</a>
+
+<h1>Welcome <%= @user.name %></h1>
+
+<h2>New Secret</h2>
+<form action="/secrets" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="secret[user_id]" value="<%= @user.id %>">
+  <label for="Comment">Secret</label>
+  <input type="text" name="secret[content]" >
+  <input type="submit" value="Create Secret">
+</form>
+
+<h3>Your Secrets:</h3>
+<table class="table">
+         <% @user.your_secrets.each do |secrets| %>
+      <tr>
+        <td><%= secrets.content %></a></td>
+      </tr>
+    <% end %> 
+  </table>
+
+<h3>Liked Secrets:</h3>
+<table class="table">
+        <% @user.secrets.each do |secret| %>
+      <tr>
+        <td><%= secret.content %></a></td>
+      </tr>
+    <% end %> 
+  </table>
